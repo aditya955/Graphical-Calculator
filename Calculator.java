@@ -1,7 +1,6 @@
 import normal.*;
 import scientific.Scientific;
 import java.awt.event.*;
-
 import javax.swing.*;
 
 public class Calculator {
@@ -266,6 +265,18 @@ public class Calculator {
                 normal.reset();
                 normal.add(String.valueOf(scientific.sin(valDouble)));
                 equation_area.setText("sin(" + valDouble + ")");
+            }
+        });
+
+        JButton sin_inverse = new JButton("sin^-1");
+        sin_inverse.setBounds(50, 560, 100, 30);
+        sin_inverse.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Double valDouble = Double.parseDouble(normal.total());
+                output.setText(String.valueOf(scientific.arcsin(valDouble)));
+                normal.reset();
+                normal.add(String.valueOf(scientific.arcsin(valDouble)));
+                equation_area.setText("sin^-1(" + valDouble + ")");
             }
         });
 
