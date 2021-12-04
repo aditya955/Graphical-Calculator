@@ -1,5 +1,7 @@
 import normal.*;
 import scientific.Scientific;
+
+import java.awt.Color;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -202,6 +204,14 @@ public class Calculator {
             }
         });
 
+        JButton a_button = new JButton("");
+        a_button.setBounds(490, 600, 100, 30);
+        a_button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                manual_equation_area.setText(normal.showEqn());
+            }
+        });
+
         JButton PI = new JButton("PI");
         PI.setBounds(160, 560, 100, 30);
         PI.addActionListener(new ActionListener() {
@@ -221,7 +231,7 @@ public class Calculator {
         });
 
         JButton inverse = new JButton("1/x");
-        inverse.setBounds(160, 520, 100, 30);
+        inverse.setBounds(50, 400, 100, 30);
         inverse.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Double valDouble = Double.parseDouble(normal.total());
@@ -233,7 +243,8 @@ public class Calculator {
         });
 
         JButton sqrt = new JButton("sqrt");
-        sqrt.setBounds(160, 440, 100, 30);
+        
+        sqrt.setBounds(270, 400, 100, 30);
         sqrt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Double valDouble = Double.parseDouble(normal.total());
@@ -245,7 +256,7 @@ public class Calculator {
         });
 
         JButton square = new JButton("X^2");
-        square.setBounds(160, 480, 100, 30);
+        square.setBounds(160, 400, 100, 30);
         square.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Double valDouble = Double.parseDouble(normal.total());
@@ -256,8 +267,41 @@ public class Calculator {
             }
         });
 
+        JButton cube = new JButton("X^3");
+        cube.setBounds(380, 400, 100, 30);
+        cube.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Double valDouble = Double.parseDouble(normal.total());
+                output.setText(String.valueOf(scientific.cube(valDouble)));
+                normal.reset();
+                normal.add(String.valueOf(scientific.cube(valDouble)));
+                equation_area.setText("Cube(" + valDouble + ")");
+            }
+        });
+
+        JButton cube_root = new JButton("cbrt");
+        cube_root.setBounds(490, 400, 100, 30);
+        cube_root.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Double valDouble = Double.parseDouble(normal.total());
+                output.setText(String.valueOf(scientific.cubeRoot(valDouble)));
+                normal.reset();
+                normal.add(String.valueOf(scientific.cubeRoot(valDouble)));
+                equation_area.setText("cbrt(" + valDouble + ")");
+            }
+        });
+
+        JButton close = new JButton("X");
+        close.setBounds(600, 400, 100, 30);
+        close.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        close.setBackground(Color.RED);
+
         JButton sin = new JButton("sin");
-        sin.setBounds(50, 560, 100, 30);
+        sin.setBounds(50, 440, 100, 30);
         sin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Double valDouble = Double.parseDouble(normal.total());
@@ -269,7 +313,7 @@ public class Calculator {
         });
 
         JButton sin_inverse = new JButton("sin^-1");
-        sin_inverse.setBounds(50, 560, 100, 30);
+        sin_inverse.setBounds(160, 440, 100, 30);
         sin_inverse.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Double valDouble = Double.parseDouble(normal.total());
@@ -281,7 +325,7 @@ public class Calculator {
         });
 
         JButton cos = new JButton("cos");
-        cos.setBounds(50, 520, 100, 30);
+        cos.setBounds(50, 480, 100, 30);
         cos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Double valDouble = Double.parseDouble(normal.total());
@@ -292,8 +336,20 @@ public class Calculator {
             }
         });
 
+        JButton cos_inverse = new JButton("cos^-1");
+        cos_inverse.setBounds(160, 480, 100, 30);
+        cos_inverse.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Double valDouble = Double.parseDouble(normal.total());
+                output.setText(String.valueOf(scientific.arccos(valDouble)));
+                normal.reset();
+                normal.add(String.valueOf(scientific.arccos(valDouble)));
+                equation_area.setText("cos^-1(" + valDouble + ")");
+            }
+        });
+
         JButton tan = new JButton("tan");
-        tan.setBounds(50, 480, 100, 30);
+        tan.setBounds(50, 520, 100, 30);
         tan.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Double valDouble = Double.parseDouble(normal.total());
@@ -301,6 +357,18 @@ public class Calculator {
                 normal.reset();
                 normal.add(String.valueOf(scientific.tan(valDouble)));
                 equation_area.setText("tan(" + valDouble + ")");
+            }
+        });
+
+        JButton tan_inverse = new JButton("tan^-1");
+        tan_inverse.setBounds(160, 520, 100, 30);
+        tan_inverse.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Double valDouble = Double.parseDouble(normal.total());
+                output.setText(String.valueOf(scientific.arctan(valDouble)));
+                normal.reset();
+                normal.add(String.valueOf(scientific.arctan(valDouble)));
+                equation_area.setText("tan^-1(" + valDouble + ")");
             }
         });
 
@@ -329,7 +397,7 @@ public class Calculator {
         });
 
         JButton max_min = new JButton("max/min");
-        max_min.setBounds(50, 440, 100, 30);
+        max_min.setBounds(50, 560, 100, 30);
         max_min.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try{
@@ -371,15 +439,22 @@ public class Calculator {
         f.add(division);
         f.add(total);
         f.add(all_clear);
+        f.add(a_button);
         f.add(show_equation);
         f.add(PI);
         f.add(e_value);
         f.add(inverse);
         f.add(sqrt);
         f.add(square);
+        f.add(cube);
+        f.add(cube_root);
+        f.add(close);
         f.add(sin);
+        f.add(sin_inverse);
         f.add(cos);
+        f.add(cos_inverse);
         f.add(tan);
+        f.add(tan_inverse);
         f.add(log);
         f.add(ln);
         f.add(max_min);
@@ -396,5 +471,5 @@ public class Calculator {
     }
 }
 
-// 10 + 5 - 2 * 10 / 8 + 100 q
-// 10.2 * 3 - 10 / 6 + 8 * 5 * 0 + 10 / 100 + 0.3 * 0.2 / 0.5 q
+// 10 + 5 - 2 * 10 / 8 + 100
+// 10.2 * 3 - 10 / 6 + 8 * 5 * 0 + 10 / 100 + 0.3 * 0.2 / 0.5
