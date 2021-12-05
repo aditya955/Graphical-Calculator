@@ -1,56 +1,59 @@
+// Imports Necessary Classes
 import normal.*;
 import scientific.Scientific;
-
 import java.awt.Color;
 import java.awt.event.*;
 import javax.swing.*;
 
+// Class Calculator Starts
 public class Calculator {
 
     public static void main(String args[]) {
         Calculator c = new Calculator();
-        c.init();
+        c.init();   // Initializes the GUI
     }
 
-    private String str;
-    private Calc1 normal = new Calc1();
-    private Scientific scientific = new Scientific();
-    private JTextArea manual_equation_area = new JTextArea();
+    private String str; // Variable to temporarily store the text entered by the user
+    private Calc1 normal = new Calc1(); // Object created to perform normal Calculator Operations
+    private Scientific scientific = new Scientific();   // Object Created to perform Scientific Calculator Operations
+    private JTextArea manual_equation_area = new JTextArea();   // Area for the user to type equations through keyboard
 
     public void init() {
 
-        JFrame f = new JFrame("Scientific Calculator");
-        JTextField output = new JTextField();
-        output.setBounds(270, 220, 430, 40);
-        output.setEditable(false);
+        JFrame f = new JFrame("Scientific Calculator"); // Frame of the Calculator
+        JTextField output = new JTextField();   // Shows the Output of the Equation
+        output.setBounds(270, 220, 430, 40);    // Sets the Co-Ordinates of the Output Box
+        output.setEditable(false);      // Sets the Output Box to be uneditable by the user
 
-        JTextField equation_area = new JTextField();
-        equation_area.setBounds(270, 170, 430, 40);
-        equation_area.setEditable(false);
+        JTextField equation_area = new JTextField();    // Shows the equation
+        equation_area.setBounds(270, 170, 430, 40);     // Sets Co-Ordinates of equation Box
+        equation_area.setEditable(false);       // Not Editable
 
-        manual_equation_area.setBounds(270, 270, 430, 40);
-        manual_equation_area.setEditable(true);
+        manual_equation_area.setBounds(270, 270, 430, 40);  // Sets Co-Ordinates of the Box where user can enter equation through keyboard
+        manual_equation_area.setEditable(true);     // It is Editable
 
-        JButton manual_calculate = new JButton("calculate");
-        manual_calculate.addActionListener(new ActionListener() {
+        JButton manual_calculate = new JButton("set eqn");  // Button To Store the Input in the str variable
+        manual_calculate.addActionListener(new ActionListener() {   // Action Performed when button is pressed
             public void actionPerformed(ActionEvent e) {
+                // IF Equation Enterd is an empty String then Print Error message on the terminal and continue program execution
                 try {
-                    str = manual_equation_area.getText();
-                    if (str.charAt(0) == '\0') {
+                    str = manual_equation_area.getText();   // Store the Equation Entered by user into str variable
+                    if (str.charAt(0) == '\0') {    // Checks whether Equation entered is empty
                         return;
                     }
                     String val[] = new String[100];
-                    val = str.split(" ");
-                    normal.add(val);
-                    manual_equation_area.setText("");
-                    System.out.println(str);
-                } catch (Exception er) {
+                    val = str.split(" ");   // Stores the Equaton in the form of an array
+                    normal.add(val);    // Stores the equation into a Vector
+                    manual_equation_area.setText("");   // Set the text area to be Empty
+                    System.out.println(str);    // Prints the equation on the terminal
+                } catch (Exception er) {    // If Enterd Equation is Empty Prints the Error message on terminal and continues the execution of program
                     System.out.println(er);
                 }
             }
         });
-        manual_calculate.setBounds(490, 440, 100, 30);
+        manual_calculate.setBounds(490, 440, 100, 30);  // Sets the Co-ordinates of the button
 
+        // Methods to add Buttons from 0 - 9(Numbers)
         JButton one = new JButton("1");
         one.setBounds(270, 560, 100, 30);
         one.addActionListener(new ActionListener() {
@@ -137,7 +140,9 @@ public class Calculator {
                 normal.add("0");
             }
         });
+        // Number Button Insertion End
 
+        // Adds the Operation Button
         JButton plus = new JButton("+");
         plus.setBounds(600, 560, 100, 30);
         plus.addActionListener(new ActionListener() {
@@ -185,17 +190,20 @@ public class Calculator {
                 normal.add(str);
             }
         });
+        // Addition Of Operation Button End
 
+        // Button to clear the equation
         JButton all_clear = new JButton("AC");
         all_clear.setBounds(270, 440, 100, 30);
         all_clear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                normal.reset();
-                output.setText(" ");
-                equation_area.setText("");
+                normal.reset();             // It clears the equation
+                output.setText("");        // Sets Output area to be Empty
+                equation_area.setText("");  // Sets Equation Area to be Empty
             }
         });
 
+        // Button To Show the Equation on uneditabel equation area
         JButton show_equation = new JButton("eqn");
         show_equation.setBounds(380, 440, 100, 30);
         show_equation.addActionListener(new ActionListener() {
@@ -204,6 +212,7 @@ public class Calculator {
             }
         });
 
+        // Button to show equation on editable Manual Equation area
         JButton a_button = new JButton("");
         a_button.setBounds(490, 600, 100, 30);
         a_button.addActionListener(new ActionListener() {
@@ -212,6 +221,7 @@ public class Calculator {
             }
         });
 
+        // Get The Value of PI
         JButton PI = new JButton("PI");
         PI.setBounds(160, 560, 100, 30);
         PI.addActionListener(new ActionListener() {
@@ -221,6 +231,7 @@ public class Calculator {
             }
         });
 
+        // Get the value of e (euler's number)
         JButton e_value = new JButton("e");
         e_value.setBounds(270, 600, 100, 30);
         e_value.addActionListener(new ActionListener() {
@@ -230,6 +241,7 @@ public class Calculator {
             }
         });
 
+        // Get the Inverse of the Output
         JButton inverse = new JButton("1/x");
         inverse.setBounds(50, 400, 100, 30);
         inverse.addActionListener(new ActionListener() {
@@ -242,8 +254,8 @@ public class Calculator {
             }
         });
 
-        JButton sqrt = new JButton("sqrt");
-        
+        // Get The Square Root Of the Output
+        JButton sqrt = new JButton("sqrt");  
         sqrt.setBounds(270, 400, 100, 30);
         sqrt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -255,6 +267,7 @@ public class Calculator {
             }
         });
 
+        // Get The Square of the Output
         JButton square = new JButton("X^2");
         square.setBounds(160, 400, 100, 30);
         square.addActionListener(new ActionListener() {
@@ -267,6 +280,7 @@ public class Calculator {
             }
         });
 
+        // Get The Cube of the Output
         JButton cube = new JButton("X^3");
         cube.setBounds(380, 400, 100, 30);
         cube.addActionListener(new ActionListener() {
@@ -279,6 +293,7 @@ public class Calculator {
             }
         });
 
+        // Get The Cube Root of the Output
         JButton cube_root = new JButton("cbrt");
         cube_root.setBounds(490, 400, 100, 30);
         cube_root.addActionListener(new ActionListener() {
@@ -291,6 +306,7 @@ public class Calculator {
             }
         });
 
+        // Stop the Execution of the program (Program is Terminated)
         JButton close = new JButton("X");
         close.setBounds(600, 400, 100, 30);
         close.addActionListener(new ActionListener() {
@@ -300,6 +316,7 @@ public class Calculator {
         });
         close.setBackground(Color.RED);
 
+        // Get The Sine(sin) of the Output
         JButton sin = new JButton("sin");
         sin.setBounds(50, 440, 100, 30);
         sin.addActionListener(new ActionListener() {
@@ -312,6 +329,7 @@ public class Calculator {
             }
         });
 
+        // Get The Sine inverse of the Output
         JButton sin_inverse = new JButton("sin^-1");
         sin_inverse.setBounds(160, 440, 100, 30);
         sin_inverse.addActionListener(new ActionListener() {
@@ -324,6 +342,7 @@ public class Calculator {
             }
         });
 
+        // Get The Cosine(cos) of the Output
         JButton cos = new JButton("cos");
         cos.setBounds(50, 480, 100, 30);
         cos.addActionListener(new ActionListener() {
@@ -336,6 +355,7 @@ public class Calculator {
             }
         });
 
+        // Get The Cosine Inverse of the Output
         JButton cos_inverse = new JButton("cos^-1");
         cos_inverse.setBounds(160, 480, 100, 30);
         cos_inverse.addActionListener(new ActionListener() {
@@ -348,6 +368,7 @@ public class Calculator {
             }
         });
 
+        // Get The Tangent(tan) of the Output
         JButton tan = new JButton("tan");
         tan.setBounds(50, 520, 100, 30);
         tan.addActionListener(new ActionListener() {
@@ -360,6 +381,7 @@ public class Calculator {
             }
         });
 
+        // Get The tan inverse of the Output
         JButton tan_inverse = new JButton("tan^-1");
         tan_inverse.setBounds(160, 520, 100, 30);
         tan_inverse.addActionListener(new ActionListener() {
@@ -372,6 +394,7 @@ public class Calculator {
             }
         });
 
+        // Get The log (base 10) of the Output
         JButton log = new JButton("log");
         log.setBounds(50, 600, 100, 30);
         log.addActionListener(new ActionListener() {
@@ -384,6 +407,7 @@ public class Calculator {
             }
         });
 
+        // Get The Natural Log (Base e) of the Output
         JButton ln = new JButton("ln");
         ln.setBounds(160, 600, 100, 30);
         ln.addActionListener(new ActionListener() {
@@ -396,6 +420,9 @@ public class Calculator {
             }
         });
 
+        // Get the maximum and minimum value for the given input
+        // The Input is entered manually through keyboard
+        // The Values are not stored
         JButton max_min = new JButton("max/min");
         max_min.setBounds(50, 560, 100, 30);
         max_min.addActionListener(new ActionListener() {
@@ -419,6 +446,7 @@ public class Calculator {
             }
         });
 
+        // Adds the button on the frame
         f.add(manual_calculate);
         f.add(output);
         f.add(equation_area);
@@ -458,12 +486,13 @@ public class Calculator {
         f.add(log);
         f.add(ln);
         f.add(max_min);
-        f.setLayout(null);
-        f.setSize(750, 700);
-        f.setVisible(true);
-        f.setEnabled(true);
+        f.setLayout(null);  // Sets Default Layout
+        f.setSize(750, 700);    // Sets the Size of Frame
+        f.setVisible(true); // Sets Frame to be visible
+        f.setEnabled(true); // Sets Components to be enabled
     }
 
+    // Checks Whether the given input is an operator or not
     public static boolean isOperator(char c) {
         if (c == '+' || c == '-' || c == '*' || c == '/')
             return true;
