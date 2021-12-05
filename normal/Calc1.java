@@ -31,311 +31,28 @@ public class Calc1 {
         return str;
     }
 
+    // Returns the Vector eqn (equation)
     public Vector<String> getEqn() {
         return eqn;
     }
 
-    public char getTop()
-    {
-        return eqn.get(eqn.size()-1).charAt(0);
-    }
-
-    public String getSecondTop()
-    {
-        return eqn.get(eqn.size()-2);
-    }
-
-    /*
-     * Working Of Below Operations: STEP 1: If the size of eqn Vector is greater
-     * than 0 than add the respective operator into Vector eqn (+, -, *, /) //
-     * Enters do...while loop STEP 2: If eqn size is not 0 then op variable stores
-     * the last added value into the eqn vector STEP 3: If eqn size is not 0 and
-     * value of op is not any operator than add the respective operator into eqn
-     * Vector STEP 4: Inputs Operand 1 as String(for exception handling), if Entered
-     * value is empty string than exit function else check whether the given input
-     * is valid number or not if it is not valid remove the last entered value into
-     * eqn Vector and continue from that loop else add the value into eqn Vector
-     * repeat same for Second Operand STEP 5: Before adding second operand into eqn
-     * Vector add the respective operator (+, -, *, /) into eqn Vector STEP 6:
-     * Continue STEP 1-5 till either one of the operand input is not an empty String
-     * 
-     * NOTE: All the below functions add(), sub(), mul(), div() works in the similar
-     * way
-     */
-
-    // Function to perform addition of multiple numbers
-    public void add() {
-        char op = 0; // Stores Current Operator
-        System.out.println(CYAN + "Enter Operands: " + RESET);
-        if (eqn.size() > 0) { // Checks If Size of Eqn Vector is greater than 0 or not
-            eqn.add("+"); // If It is than pushes + into Vector eqn
-        }
-        do {
-            if (eqn.size() != 0)
-                op = eqn.get(eqn.size() - 1).charAt(0); // Stores the last value pushed into Vector
-            if (eqn.size() != 0 && (op != '+')) {
-                eqn.add("+"); // If Size of eqn is greater than 0 and last value push is not an operator than
-                              // push + into vector
-            }
-            // Gets First Input From User "1 >>" indicates first Input
-            System.out.print(YELLOW + "ADD >> " + RESET);
-            temp1 = in.nextLine();
-            if (temp1 == "") {
-                eqn.remove(eqn.size() - 1); // If Input provided is an empty string than pop the last inserted element
-                                            // i.e. pop + and come out of loop
-                break;
-            }
-            // Checking Wheter Given input is an integer or not
-            try {
-                Float.parseFloat(temp1);
-            } catch (NumberFormatException e) {
-                System.out.println(RED + "X  Error: The Given Input Is Not  a Number" + RESET);
-                continue;
-            }
-            // If input is integer than push than value into the vector
-            eqn.add(temp1);
-            // Takes Second Input from user
-            System.out.print(YELLOW + "ADD >> " + RESET);
-            temp2 = in.nextLine();
-            if (temp2 == "") {
-                break;
-            }
-            try {
-                Float.parseFloat(temp2);
-            } catch (NumberFormatException e) {
-                System.out.println(RED + "X  Error: The Given Input Is Not  a Number" + RESET);
-                continue;
-            }
-            eqn.add("+");
-            eqn.add(temp2);
-        } while (true);
-    }
-
-    public void add(String val)
-    {
+    // Add a single value into the eqn Vector
+    public void add(String val) {
         eqn.add(val);
     }
-    
-    public void add(String val[])
-    {
-        for(int i=0;i<val.length;i++)
-        {
+
+    // Add A Array of Values into the eqn Vector
+    public void add(String val[]) {
+        for (int i = 0; i < val.length; i++) {
             eqn.add(val[i]);
         }
-    }
-
-    // Function to perform substraction of multiple number
-    // Functionality is similar to add function but instead of '+' sign '-' sign is
-    // there
-    public void sub() {
-        char op = 0;
-        System.out.println(CYAN + "Enter Operands: " + RESET);
-        if (eqn.size() > 0) {
-            eqn.add("-");
-        }
-        do {
-            if (eqn.size() != 0)
-                op = eqn.get(eqn.size() - 1).charAt(0);
-            if (eqn.size() != 0 && (op != '-')) {
-                eqn.add("-");
-            }
-            System.out.print(YELLOW + "SUB >> " + RESET);
-            temp1 = in.nextLine();
-            if (temp1 == "") {
-                eqn.remove(eqn.size() - 1);
-                break;
-            }
-            try {
-                Float.parseFloat(temp1);
-            } catch (NumberFormatException e) {
-                System.out.println(RED + "X  Error: The Given Input Is Not  a Number" + RESET);
-                continue;
-            }
-            if (eqn.size() == 0) { // Checks if the size of eqn is 0 or not if it is 0 than the first number
-                                   // entered is set as negative number
-                float t = Float.parseFloat(temp1);
-                t = (-1) * t;
-                temp1 = String.valueOf(t);
-                eqn.add(temp1);
-            } else
-                eqn.add(temp1);
-            System.out.print(YELLOW + "SUB >> " + RESET);
-            temp2 = in.nextLine();
-            if (temp2 == "") {
-                break;
-            }
-            try {
-                Float.parseFloat(temp2);
-            } catch (NumberFormatException e) {
-                System.out.println(RED + "X  Error: The Given Input Is Not  a Number" + RESET);
-                continue;
-            }
-            eqn.add("-");
-            eqn.add(temp2);
-        } while (true);
-    }
-
-    // Function to perform Multiplication of multiple number
-    // Functionality is similar to add function but instead of '+' sign '*' sign is
-    // there
-    public void mul() {
-        if (eqn.size() > 0) {
-            eqn.add("*");
-        }
-        char op = 0;
-        System.out.println(CYAN + "Enter Operands: " + RESET);
-        do {
-            if (eqn.size() != 0)
-                op = eqn.get(eqn.size() - 1).charAt(0);
-            if (eqn.size() != 0 && (op != '*')) {
-                eqn.add("*");
-            }
-            System.out.print(YELLOW + "MUL >> " + RESET);
-            temp1 = in.nextLine();
-            if (temp1 == "") {
-                eqn.remove(eqn.size() - 1);
-                break;
-            }
-            try {
-                Float.parseFloat(temp1);
-            } catch (NumberFormatException e) {
-                System.out.println(RED + "X  Error: The Given Input Is Not  a Number" + RESET);
-                continue;
-            }
-            eqn.add(temp1);
-            System.out.print(YELLOW + "MUL >> " + RESET);
-            temp2 = in.nextLine();
-            if (temp2 == "") {
-                break;
-            }
-            try {
-                Float.parseFloat(temp2);
-            } catch (NumberFormatException e) {
-                System.out.println(RED + "X  Error: The Given Input Is Not  a Number" + RESET);
-                continue;
-            }
-            eqn.add("*");
-            eqn.add(temp2);
-        } while (true);
-    }
-
-    // Function to perform Division of multiple number
-    // Functionality is similar to add function but instead of '+' sign '/' sign is
-    // there
-    public void div() {
-        char op = 0;
-        System.out.println(CYAN + "Enter Operands: " + RESET);
-        if (eqn.size() > 0) {
-            eqn.add("/");
-        }
-        do {
-            if (eqn.size() != 0)
-                op = eqn.get(eqn.size() - 1).charAt(0);
-            if (eqn.size() != 0 && (op != '/')) {
-                eqn.add("/");
-            }
-            System.out.print(YELLOW + "DIV >> " + RESET);
-            temp1 = in.nextLine();
-            if (temp1 == "") {
-                eqn.remove(eqn.size() - 1);
-                break;
-            }
-            try {
-                Float.parseFloat(temp1);
-            } catch (NumberFormatException e) {
-                System.out.println(RED + "X  Error: The Given Input Is Not  a Number" + RESET);
-                continue;
-            }
-            eqn.add(temp1);
-            System.out.print(YELLOW + "DIV >> " + RESET);
-            temp2 = in.nextLine();
-            if (temp2 == "") {
-                break;
-            }
-            if (temp2.charAt(0) == '0') {
-                System.out.println(RED + "X  Error: Cannot Divide By Zero" + RESET);
-                eqn.remove(eqn.size() - 1);
-                continue;
-            }
-            try {
-                Float.parseFloat(temp2);
-            } catch (NumberFormatException e) {
-                System.out.println(RED + "X  Error: The Given Input Is Not  a Number" + RESET);
-                continue;
-            }
-            eqn.add("/");
-            eqn.add(temp2);
-        } while (true);
-    }
-
-    // Function to manually input equation
-    // e.g.: 10 + 12 - 3 * 2 q
-    // All the operands and operators should be seperated by a space
-    // Note: To exit this function enter q as last operand
-    public void manualEquation() {
-        String oper; // Stores the current operator
-        System.out.println(YELLOW + "Enter The Equation: " + RESET);
-        do {
-            if (eqn.size() != 0) {
-                oper = in.next();
-                if (oper.charAt(0) == 'q') // If operator is q than exit function
-                {
-                    break;
-                }
-                if (oper.charAt(0) == '+' || oper.charAt(0) == '-' || oper.charAt(0) == '*' || oper.charAt(0) == '/') {
-                    eqn.add(oper); // Checks wheter given operator is valid or not if it is valid than add the
-                                   // operator into the eqn Vector
-                } else {
-                    System.out.println(RED + "X  Error: Given Input Not an Operator..." + RESET);
-                    continue;
-                }
-            }
-            temp1 = in.next(); // Operand 1
-            if (temp1.charAt(0) == 'q') // If Operand 1 is q than exit this function
-            {
-                break;
-            }
-            try {
-                Float.parseFloat(temp1); // Checks whether given number is valid number or not
-                eqn.add(temp1); // Adds the given operand into eqn Vector if given number is valid
-            } catch (NumberFormatException e) {
-                System.out.println(RED + "X  Error: Given Input Is Not a Number..." + RESET); // Prints error message if given number
-                                                                                // is not a valid number and continue
-                                                                                // the loop
-                continue;
-            }
-            oper = in.next(); // Inputs Operator
-            if (oper.charAt(0) == 'q') // If operator is q than exit function
-            {
-                break;
-            }
-            if (oper.charAt(0) == '+' || oper.charAt(0) == '-' || oper.charAt(0) == '*' || oper.charAt(0) == '/') {
-                eqn.add(oper); // Checks wheter given operator is valid or not if it is valid than add the
-                               // operator into the eqn Vector
-            } else {
-                System.out.println(RED + "X  Error: Given Input Not an Operator..." + RESET);
-                continue;
-            }
-            // Operand 2 similar to Operand 1
-            temp2 = in.next(); // Stores Second Operand
-            if (temp2.charAt(0) == 'q') {
-                break;
-            }
-            try {
-                Float.parseFloat(temp1);
-                eqn.add(temp2);
-            } catch (NumberFormatException e) {
-                System.out.println(RED + "X  Error: Given Input Is Not a Number..." + RESET);
-                continue;
-            }
-        } while (true);
     }
 
     // Function to calculate the total of the equation
     /*
      * Working Of Total function: 1. The function iterates through the eqn Vector if
      * operand is found it pushes it in operand[] stack and if operator is found
-     * then it and current operator is '*' or '/' and the operator at top of
+     * then it checks if current operator is '*' or '/' and the operator at top of
      * operator[] stack is '+' or '-' than it pushes it into the stack else if it is
      * '*' or '/' than it pop the first(top) operator from stack and also pops two
      * operands from the operand stack and carries operation on them based on the
@@ -344,7 +61,7 @@ public class Calc1 {
      * 2. If the current operator is '+' or '-' and stack top is '*' or '/' than the
      * above operation is carried till the stack is empty and than pushes the
      * current operator
-     * 3. The Above operation is performed from i=0 to i<eqn.size then after than in
+     * 3. The Above operation is performed from i=0 to i<eqn.size then after that in
      * while loop the above operation is carried till the stack is empty
      */
     public String total() {
@@ -380,7 +97,6 @@ public class Calc1 {
             // Method to pop the top element from the stack and return the popped value
             public String pop() {
                 if (top < 0) {
-                    System.out.println(RED + "X  Error: Are You Sure Equation is Correct?" + RESET);
                     throw new ArithmeticException(RED + "Incorrect Equation..." + RESET);
                 }
                 top--;
@@ -395,7 +111,9 @@ public class Calc1 {
                 return false;
             }
 
-            // Returns the value at the top of stack
+            // Get the Value at top of the stack
+            // Returns a single character
+            // This is used to get the operators from operator stack
             char stackTop() {
                 return op[top].charAt(0);
             }
@@ -418,10 +136,10 @@ public class Calc1 {
         // Calculating total
         stack operand = new stack(); // Stores the operand into the stack
         stack operator = new stack(10); // Stores the operator into the stack
-        float total = 0; // Stores total of current tow operand
+        float total = 0; // Stores total of current two operand
         for (int i = 0; i < eqn.size(); i++) { // Loop through the eqn Vector
             if (operand.isEmpty() || operator.isEmpty()) { // Checks whether operand or operator stack is empty or not
-                try { // Pushes Operands and Operators into their respective stack if either one of
+                try { // Pushes Operands or Operators into their respective stack if either one of
                       // them is empty
                     Float.parseFloat(eqn.get(i));
                     operand.push(eqn.get(i));
